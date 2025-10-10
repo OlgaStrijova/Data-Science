@@ -34,7 +34,7 @@ cursor = conn.cursor()
 
 # Создание схемы
 cursor.execute("CREATE SCHEMA IF NOT EXISTS ds_hw3;")
-conn.commit()  
+conn.commit()
 
 # Создание таблицы
 cursor.execute("""
@@ -59,7 +59,7 @@ print ("Таблица успешно создана")
 
 # Загружаем CSV
 # df = pd.read_csv("loan-test.csv")
-df = pd.read_csv("loan-test.csv", na_values=["", "NULL"])
+df = pd.read_csv("D:\\Data Science_1\\Data-Science\\HW_3\\loan-test.csv", na_values=["", "NULL"])
 
 # Преобразуем NaN в None, чтобы psycopg2 корректно передал NULL в PostgreSQL
 df = df.where(pd.notnull(df), None)
@@ -95,7 +95,6 @@ WHERE ApplicantIncome > 10000;
 print("Заявки с высоким доходом:") 
 print(cursor.fetchall())
 
-
 # Средний доход 
 cursor.execute("SELECT AVG(ApplicantIncome) FROM ds_hw3.loans;")
 print("Средний доход заявителей:", cursor.fetchone()[0])
@@ -117,8 +116,6 @@ GROUP BY Education;
 """)
 print("Средняя сумма кредита по образованию:")
 print(cursor.fetchall())
-
-
 
 # Загружаем данные из базы обратно в DataFrame
 query = """SELECT Loan_ID, Gender, Married, Dependents, Education, Self_Employed,
